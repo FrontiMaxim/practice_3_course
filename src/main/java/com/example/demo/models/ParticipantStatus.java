@@ -11,7 +11,7 @@ public class ParticipantStatus {
     @Id
     @Column(name = "id_participant_status", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idParticipantStatus;
+    private Long idParticipantStatus;
 
     @Basic
     @Column(name = "code", nullable = true, length = 6)

@@ -14,7 +14,7 @@ public class AccRstrList {
     @Id
     @Column(name = "id_acc_rstr_list", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idAccRstrList;
+    private Long idAccRstrList;
 
     @Basic
     @Column(name = "acc_rstr", nullable = true, length = 4)

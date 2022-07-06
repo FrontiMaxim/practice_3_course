@@ -9,7 +9,7 @@ public class XchType {
     @Id
     @Column(name = "id_xch_type", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idXchType;
+    private Long idXchType;
 
     @Basic
     @Column(name = "code", nullable = true, length = 6)

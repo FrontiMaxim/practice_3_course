@@ -7,7 +7,7 @@ public class Swbic {
     @Id
     @Column(name = "id_swbic", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idSwbic;
+    private Long idSwbic;
 
     @Basic
     @Column(name = "swbic", nullable = true, length = 11)
@@ -15,7 +15,7 @@ public class Swbic {
 
     @Basic
     @Column(name = "default_swbic", nullable = true)
-    private Integer defaultSwbic;
+    private Long defaultSwbic;
 
     @ManyToOne
     @JoinColumn(name="id_bic_directory_entry", nullable = false)

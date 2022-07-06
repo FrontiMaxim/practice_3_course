@@ -14,7 +14,7 @@ public class ParticipantInfo {
     @Id
     @Column(name = "id_participant_info", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idParticipantInfo;
+    private Long idParticipantInfo;
 
     @Basic
     @Column(name = "name_p", nullable = true, length = 160)
@@ -62,7 +62,7 @@ public class ParticipantInfo {
 
     @Basic
     @Column(name = "uid", nullable = true)
-    private Integer uid;
+    private Long uid;
 
     @OneToOne
     @JoinColumn(name = "id_bic_directory_entry", nullable = false)

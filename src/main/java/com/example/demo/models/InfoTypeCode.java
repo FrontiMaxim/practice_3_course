@@ -12,7 +12,7 @@ public class InfoTypeCode {
     @Id
     @Column(name = "id_info_type_code", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idInfoTypeCode;
+    private Long idInfoTypeCode;
 
     @Basic
     @Column(name = "code", nullable = true, length = 6)

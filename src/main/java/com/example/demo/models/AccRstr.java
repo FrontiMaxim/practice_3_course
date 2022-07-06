@@ -12,7 +12,7 @@ public class AccRstr {
     @Id
     @Column(name = "id_acc_rstr", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idAccRstr;
+    private Long idAccRstr;
 
     @Basic
     @Column(name = "code", nullable = true, length = 6)

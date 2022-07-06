@@ -11,7 +11,7 @@ public class RegulationAccountType {
     @Id
     @Column(name = "id_regulation_account_type", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idRegulationAccountType;
+    private Long idRegulationAccountType;
 
     @Basic
     @Column(name = "code", nullable = true, length = 6)

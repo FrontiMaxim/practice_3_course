@@ -13,7 +13,7 @@ public class RstrList {
     @Id
     @Column(name = "id_rstr_list", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idRstrList;
+    private Long idRstrList;
 
     @Basic
     @Column(name = "rstr", nullable = true, length = 4)

@@ -12,7 +12,7 @@ public class CreationReason {
     @Id
     @Column(name = "id_creation_reason", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idCreationReason;
+    private Long idCreationReason;
 
     @Basic
     @Column(name = "code", nullable = true, length = 6)

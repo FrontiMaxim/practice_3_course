@@ -13,7 +13,7 @@ public class AccountStatus {
     @Id
     @Column(name = "id_account_status", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idAccountStatus;
+    private Long idAccountStatus;
 
     @Basic
     @Column(name = "code", nullable = true, length = 6)

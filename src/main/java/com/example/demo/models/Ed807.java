@@ -15,11 +15,11 @@ public class Ed807 {
     @Id
     @Column(name = "id_ed_807", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idEd807;
+    private Long idEd807;
 
     @Basic
     @Column(name = "ed_no", nullable = true)
-    private Integer edNo;
+    private Long edNo;
 
     @Basic
     @Column(name = "xmlns", nullable = true, length = 20)
@@ -31,7 +31,7 @@ public class Ed807 {
 
     @Basic
     @Column(name = "ed_author", nullable = true)
-    private Integer edAuthor;
+    private Long edAuthor;
 
     @Basic
     @Column(name = "creation_reason", nullable = true, length = 4)
@@ -61,22 +61,4 @@ public class Ed807 {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ed807")
     private List<BicDirectoryEntry> listBicDirectoryEntry;
-
-    public Ed807() {}
-
-    public Ed807(long idEd807, Integer edNo, String xmlns, Date edDate, Integer edAuthor, String creationReason, Timestamp creationDateTime, String infoTypeCode, Date businessDay, Integer directoryVersion, List<CreationReason> listCreationReason, List<InfoTypeCode> listInfoTypeCode, List<BicDirectoryEntry> listBicDirectoryEntry) {
-        this.idEd807 = idEd807;
-        this.edNo = edNo;
-        this.xmlns = xmlns;
-        this.edDate = edDate;
-        this.edAuthor = edAuthor;
-        this.creationReason = creationReason;
-        this.creationDateTime = creationDateTime;
-        this.infoTypeCode = infoTypeCode;
-        this.businessDay = businessDay;
-        this.directoryVersion = directoryVersion;
-        this.listCreationReason = listCreationReason;
-        this.listInfoTypeCode = listInfoTypeCode;
-        this.listBicDirectoryEntry = listBicDirectoryEntry;
-    }
 }

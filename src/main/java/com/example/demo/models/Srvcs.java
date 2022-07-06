@@ -8,7 +8,7 @@ public class Srvcs {
     @Id
     @Column(name = "id_srvcs", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idSrvcs;
+    private Long idSrvcs;
 
     @Basic
     @Column(name = "code", nullable = true, length = 6)

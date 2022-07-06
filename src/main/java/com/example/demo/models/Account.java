@@ -14,7 +14,7 @@ public class Account {
     @Id
     @Column(name = "id_account", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idAccount;
+    private Long idAccount;
 
     @Basic
     @Column(name = "account", nullable = true, length = 20)
@@ -26,7 +26,7 @@ public class Account {
 
     @Basic
     @Column(name = "account_cbrbic", nullable = true)
-    private Integer accountCbrbic;
+    private Long accountCbrbic;
 
     @Basic
     @Column(name = "date_in", nullable = true)

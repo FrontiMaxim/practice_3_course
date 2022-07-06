@@ -12,7 +12,7 @@ public class PtType {
     @Id
     @Column(name = "id_pt_type", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idPtType;
+    private Long idPtType;
 
     @Basic
     @Column(name = "code", nullable = true, length = 6)

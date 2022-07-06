@@ -13,11 +13,11 @@ public class BicDirectoryEntry {
     @Id
     @Column(name = "id_bic_directory_entry", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idBicDirectoryEntry;
+    private Long idBicDirectoryEntry;
 
     @Basic
     @Column(name = "bic", nullable = true)
-    private Integer bic;
+    private Long bic;
 
     @ManyToOne
     @JoinColumn(name = "id_ed_807", nullable = false)

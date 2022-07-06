@@ -9,7 +9,7 @@ public class Rstr {
     @Id
     @Column(name = "id_rstr", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idRstr;
+    private Long idRstr;
 
     @Basic
     @Column(name = "code", nullable = true, length = 6)
