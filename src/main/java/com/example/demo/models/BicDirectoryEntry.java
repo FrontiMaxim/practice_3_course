@@ -1,55 +1,34 @@
 package com.example.demo.models;
 
+import lombok.Data;
+
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.List;
 
 @Entity
+@Data
 @Table(name = "bic_directory_entry", schema = "public", catalog = "db_cb_russia")
 public class BicDirectoryEntry {
-    private long idBicDirectoryEntry;
-    private Integer bic;
-    private Long idEd807;
 
     @Id
     @Column(name = "id_bic_directory_entry", nullable = false)
-    public long getIdBicDirectoryEntry() {
-        return idBicDirectoryEntry;
-    }
-
-    public void setIdBicDirectoryEntry(long idBicDirectoryEntry) {
-        this.idBicDirectoryEntry = idBicDirectoryEntry;
-    }
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long idBicDirectoryEntry;
 
     @Basic
     @Column(name = "bic", nullable = true)
-    public Integer getBic() {
-        return bic;
-    }
+    private Integer bic;
 
-    public void setBic(Integer bic) {
-        this.bic = bic;
-    }
+    @ManyToOne
+    @JoinColumn(name = "id_ed_807", nullable = false)
+    private Ed807 ed807;
 
-    @Basic
-    @Column(name = "id_ed_807", nullable = true)
-    public Long getIdEd807() {
-        return idEd807;
-    }
+    @OneToOne(mappedBy = "bicDirectoryEntry", fetch = FetchType.LAZY)
+    private ParticipantInfo participantInfo;
 
-    public void setIdEd807(Long idEd807) {
-        this.idEd807 = idEd807;
-    }
+    @OneToMany(mappedBy = "bicDirectoryEntry", fetch = FetchType.LAZY)
+    private List<Swbic> listSwbic;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BicDirectoryEntry that = (BicDirectoryEntry) o;
-        return idBicDirectoryEntry == that.idBicDirectoryEntry && Objects.equals(bic, that.bic) && Objects.equals(idEd807, that.idEd807);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idBicDirectoryEntry, bic, idEd807);
-    }
+    @OneToMany(mappedBy = "bicDirectoryEntry", fetch = FetchType.LAZY)
+    private List<Account> listAccount;
 }

@@ -1,102 +1,47 @@
 package com.example.demo.models;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import lombok.Data;
+
+import javax.persistence.*;
 import java.sql.Date;
-import java.util.Objects;
+import java.util.List;
 
 @Entity
+@Data
+@Table(name = "account", schema = "public", catalog = "db_cb_russia")
 public class Account {
-    private long idAccount;
-    private String account;
-    private String regulationAccountType;
-    private Integer accountCbrbic;
-    private Date dateIn;
-    private String accountStatus;
-    private Long idBicDirectoryEntry;
 
     @Id
     @Column(name = "id_account", nullable = false)
-    public long getIdAccount() {
-        return idAccount;
-    }
-
-    public void setIdAccount(long idAccount) {
-        this.idAccount = idAccount;
-    }
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long idAccount;
 
     @Basic
     @Column(name = "account", nullable = true, length = 20)
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
+    private String account;
 
     @Basic
     @Column(name = "regulation_account_type", nullable = true, length = 4)
-    public String getRegulationAccountType() {
-        return regulationAccountType;
-    }
-
-    public void setRegulationAccountType(String regulationAccountType) {
-        this.regulationAccountType = regulationAccountType;
-    }
+    private String regulationAccountType;
 
     @Basic
     @Column(name = "account_cbrbic", nullable = true)
-    public Integer getAccountCbrbic() {
-        return accountCbrbic;
-    }
-
-    public void setAccountCbrbic(Integer accountCbrbic) {
-        this.accountCbrbic = accountCbrbic;
-    }
+    private Integer accountCbrbic;
 
     @Basic
     @Column(name = "date_in", nullable = true)
-    public Date getDateIn() {
-        return dateIn;
-    }
+    private Date dateIn;
 
-    public void setDateIn(Date dateIn) {
-        this.dateIn = dateIn;
-    }
+    @ManyToOne
+    @JoinColumn(name = "id_bic_directory_entry", nullable = false)
+    private BicDirectoryEntry bicDirectoryEntry;
 
-    @Basic
-    @Column(name = "account_status", nullable = true, length = 4)
-    public String getAccountStatus() {
-        return accountStatus;
-    }
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
+    private List<AccountStatus> listAccountStatus;
 
-    public void setAccountStatus(String accountStatus) {
-        this.accountStatus = accountStatus;
-    }
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
+    private List<RegulationAccountType> listRegulationAccountType;
 
-    @Basic
-    @Column(name = "id_bic_directory_entry", nullable = true)
-    public Long getIdBicDirectoryEntry() {
-        return idBicDirectoryEntry;
-    }
-
-    public void setIdBicDirectoryEntry(Long idBicDirectoryEntry) {
-        this.idBicDirectoryEntry = idBicDirectoryEntry;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Account account1 = (Account) o;
-        return idAccount == account1.idAccount && Objects.equals(account, account1.account) && Objects.equals(regulationAccountType, account1.regulationAccountType) && Objects.equals(accountCbrbic, account1.accountCbrbic) && Objects.equals(dateIn, account1.dateIn) && Objects.equals(accountStatus, account1.accountStatus) && Objects.equals(idBicDirectoryEntry, account1.idBicDirectoryEntry);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idAccount, account, regulationAccountType, accountCbrbic, dateIn, accountStatus, idBicDirectoryEntry);
-    }
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
+    private List<AccRstrList> listAccRstrList;
 }

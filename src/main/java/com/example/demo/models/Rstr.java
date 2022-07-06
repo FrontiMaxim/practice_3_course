@@ -1,18 +1,15 @@
 package com.example.demo.models;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
-@Entity
-@Data
-@Table(name = "pt_type", schema = "public", catalog = "db_cb_russia")
-public class PtType {
 
+@Entity
+@Table(name = "rstr", schema = "public", catalog = "db_cb_russia")
+public class Rstr {
     @Id
-    @Column(name = "id_pt_type", nullable = false)
+    @Column(name = "id_rstr", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idPtType;
+    private long idRstr;
 
     @Basic
     @Column(name = "code", nullable = true, length = 6)
@@ -23,6 +20,8 @@ public class PtType {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "id_participant_info", nullable = false)
-    private ParticipantInfo participantInfo;
+    @JoinColumn(name="id_rstr_list", nullable = false)
+    private RstrList rstrList;
 }
+
+
