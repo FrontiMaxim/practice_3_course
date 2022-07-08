@@ -34,15 +34,15 @@ public class Ed807 {
     private Long edAuthor;
 
     @Basic
-    @Column(name = "creation_reason", nullable = true, length = 4)
+    @Column(name = "creation_reason", nullable = true, length = 10)
     private String creationReason;
 
     @Basic
     @Column(name = "creation_date_time", nullable = true)
-    private Timestamp creationDateTime;
+    private Date creationDateTime;
 
     @Basic
-    @Column(name = "info_type_code", nullable = true, length = 4)
+    @Column(name = "info_type_code", nullable = true, length = 10)
     private String infoTypeCode;
 
     @Basic
@@ -51,7 +51,7 @@ public class Ed807 {
 
     @Basic
     @Column(name = "directory_version", nullable = true)
-    private Integer directoryVersion;
+    private Long directoryVersion;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ed807")
     private List<CreationReason> listCreationReason;

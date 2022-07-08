@@ -17,7 +17,7 @@ public class AccRstrList {
     private Long idAccRstrList;
 
     @Basic
-    @Column(name = "acc_rstr", nullable = true, length = 4)
+    @Column(name = "acc_rstr", nullable = true, length = 20)
     private String accRstr;
 
     @Basic

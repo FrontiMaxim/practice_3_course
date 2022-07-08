@@ -6,10 +6,11 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Data;
 
 import java.sql.Date;
+import java.util.List;
 
 @Data
 @JsonRootName("ParticipantInfo")
-public class ParticipantInfo {
+public class ParticipantInfoMapper {
 
     @JsonProperty("NameP")
     private String nameP;
@@ -47,4 +48,7 @@ public class ParticipantInfo {
 
     @JsonProperty("UID")
     private Long uid;
+
+    @JsonProperty("RstrList")
+    private List<RstrListMapper> listRstrList;
 }

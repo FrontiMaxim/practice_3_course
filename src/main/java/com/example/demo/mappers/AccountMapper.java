@@ -5,11 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Data;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import java.sql.Date;
+import java.util.List;
 
 @Data
-@JsonRootName("Account")
-public class Account {
+@JsonRootName("Accounts")
+public class AccountMapper {
 
     @JsonProperty("Account")
     private String account;
@@ -20,7 +23,16 @@ public class Account {
     @JsonProperty("AccountCBRBIC")
     private Long accountCbrbic;
 
-    @JsonProperty("Account")
+    @JsonProperty("DateIn")
     @JsonFormat(pattern="YYYY-MM-DD")
     private Date dateIn;
+
+    @JsonProperty("CK")
+    private Integer ck;
+
+    @JsonProperty("AccountStatus")
+    private String accountStatus;
+
+    @JsonProperty("AccRstrList")
+    private List<AccRstrListMapper> listAccRstrList;
 }

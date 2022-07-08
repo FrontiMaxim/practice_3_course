@@ -10,7 +10,7 @@ public class Swbic {
     private Long idSwbic;
 
     @Basic
-    @Column(name = "swbic", nullable = true, length = 11)
+    @Column(name = "swbic", nullable = true, length = 20)
     private String swbic;
 
     @Basic

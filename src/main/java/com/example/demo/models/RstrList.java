@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import lombok.Data;
 import org.apache.catalina.LifecycleState;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Entity
+@Data
 @Table(name = "rstr_list", schema = "public", catalog = "db_cb_russia")
 public class RstrList {
 
@@ -16,7 +18,7 @@ public class RstrList {
     private Long idRstrList;
 
     @Basic
-    @Column(name = "rstr", nullable = true, length = 4)
+    @Column(name = "rstr", nullable = true, length = 20)
     private String rstr;
 
     @Basic

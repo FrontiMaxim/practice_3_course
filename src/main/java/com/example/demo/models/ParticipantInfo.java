@@ -17,31 +17,31 @@ public class ParticipantInfo {
     private Long idParticipantInfo;
 
     @Basic
-    @Column(name = "name_p", nullable = true, length = 160)
+    @Column(name = "name_p", nullable = true, length = 400)
     private String nameP;
 
     @Basic
-    @Column(name = "cntr_cd", nullable = true, length = 2)
+    @Column(name = "cntr_cd", nullable = true, length = 20)
     private String cntrCd;
 
     @Basic
-    @Column(name = "rgn", nullable = true, length = 2)
+    @Column(name = "rgn", nullable = true, length = 20)
     private String rgn;
 
     @Basic
-    @Column(name = "ind", nullable = true, length = 6)
+    @Column(name = "ind", nullable = true, length = 20)
     private String ind;
 
     @Basic
-    @Column(name = "tnp", nullable = true, length = 5)
+    @Column(name = "tnp", nullable = true, length = 20)
     private String tnp;
 
     @Basic
-    @Column(name = "nnp", nullable = true, length = 25)
+    @Column(name = "nnp", nullable = true, length = 30)
     private String nnp;
 
     @Basic
-    @Column(name = "adr", nullable = true, length = 160)
+    @Column(name = "adr", nullable = true, length = 400)
     private String adr;
 
     @Basic
@@ -49,15 +49,15 @@ public class ParticipantInfo {
     private Date dateIn;
 
     @Basic
-    @Column(name = "pt_type", nullable = true, length = 2)
+    @Column(name = "pt_type", nullable = true, length = 20)
     private String ptType;
 
     @Basic
-    @Column(name = "srvcs", nullable = true, length = 1)
+    @Column(name = "srvcs", nullable = true, length = 20)
     private String srvcs;
 
     @Basic
-    @Column(name = "xch_type", nullable = true, length = 1)
+    @Column(name = "xch_type", nullable = true, length = 20)
     private String xchType;
 
     @Basic

@@ -9,8 +9,8 @@ import java.sql.Date;
 
 
 @Data
-@JsonRootName("ED807")
-public class AccRstrList {
+@JsonRootName("AccRstrList")
+public class AccRstrListMapper {
 
     @JsonProperty("AccRstr")
     private String accRstr;

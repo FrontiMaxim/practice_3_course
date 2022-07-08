@@ -4,12 +4,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
+import java.util.List;
 
 @Data
 @JsonRootName("ED807")
-public class Ed807 {
+public class Ed807Mapper {
 
     @JsonProperty("EDNo")
     private Long edNo;
@@ -28,7 +30,8 @@ public class Ed807 {
     private String creationReason;
 
     @JsonProperty("CreationDateTime")
-    @JsonFormat(pattern="YYYY-MM-DDThh:mm:ssZ")
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private Date creationDateTime;
 
     @JsonProperty("InfoTypeCode")
@@ -40,4 +43,7 @@ public class Ed807 {
 
     @JsonProperty("DirectoryVersion")
     private Long directoryVersion;
+
+    @JsonProperty("BICDirectoryEntry")
+    private List<BicDirectoryEntryMapper> listBicDirectoryEntry;
 }

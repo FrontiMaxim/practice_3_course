@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @JsonRootName("SWBICS")
-public class Swbic {
+public class SwbicMapper {
 
     @JsonProperty("SWBIC")
     private String swbic;

@@ -14,7 +14,7 @@ public class ParticipantStatus {
     private Long idParticipantStatus;
 
     @Basic
-    @Column(name = "code", nullable = true, length = 6)
+    @Column(name = "code", nullable = true, length = 10)
     private String code;
 
     @Basic
