@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -37,7 +38,7 @@ public class ParticipantInfo {
     private String tnp;
 
     @Basic
-    @Column(name = "nnp", nullable = true, length = 30)
+    @Column(name = "nnp", nullable = true, length = 100)
     private String nnp;
 
     @Basic
@@ -66,20 +67,21 @@ public class ParticipantInfo {
 
     @OneToOne
     @JoinColumn(name = "id_bic_directory_entry", nullable = false)
+    @JsonIgnore
     private BicDirectoryEntry bicDirectoryEntry;
 
-    @OneToMany(mappedBy = "participantInfo", fetch = FetchType.LAZY)
-    private List<ParticipantStatus> listParticipantsStatus;
+//    @OneToMany(mappedBy = "participantInfo", fetch = FetchType.LAZY)
+//    private List<ParticipantStatus> listParticipantsStatus;
 
-    @OneToMany(mappedBy = "participantInfo", fetch = FetchType.LAZY)
-    private List<Srvcs> listSrvcs;
+//    @OneToMany(mappedBy = "participantInfo", fetch = FetchType.LAZY)
+//    private List<Srvcs> listSrvcs;
 
-    @OneToMany(mappedBy = "participantInfo", fetch = FetchType.LAZY)
-    private List<XchType> listXchType;
+//    @OneToMany(mappedBy = "participantInfo", fetch = FetchType.LAZY)
+//    private List<XchType> listXchType;
 
     @OneToMany(mappedBy = "participantInfo", fetch = FetchType.LAZY)
     private List<RstrList> listRstrList;
 
-    @OneToMany(mappedBy = "participantInfo", fetch = FetchType.LAZY)
-    private List<PtType> listPtType;
+//    @OneToMany(mappedBy = "participantInfo", fetch = FetchType.LAZY)
+//    private List<PtType> listPtType;
 }

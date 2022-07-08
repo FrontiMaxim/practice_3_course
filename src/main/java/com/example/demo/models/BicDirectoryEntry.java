@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class BicDirectoryEntry {
 
     @ManyToOne
     @JoinColumn(name = "id_ed_807", nullable = false)
+    @JsonIgnore
     private Ed807 ed807;
 
     @OneToOne(mappedBy = "bicDirectoryEntry", fetch = FetchType.LAZY)

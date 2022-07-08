@@ -19,6 +19,6 @@ public class BicDirectoryEntryMapper {
     @JsonProperty("Accounts")
     private List<AccountMapper> listAccount;
 
-    @JsonProperty("Swbic")
+    @JsonProperty("SWBICS")
     private List<SwbicMapper> listSwbic;
 }

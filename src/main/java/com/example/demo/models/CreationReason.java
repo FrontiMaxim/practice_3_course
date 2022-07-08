@@ -22,7 +22,7 @@ public class CreationReason {
     @Column(name = "name", nullable = true, length = 300)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "id_ed_807", nullable = false)
-    private Ed807 ed807;
+//    @ManyToOne
+//    @JoinColumn(name = "id_ed_807", nullable = false)
+//    private Ed807 ed807;
 }

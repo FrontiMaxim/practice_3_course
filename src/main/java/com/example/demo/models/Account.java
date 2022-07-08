@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -42,13 +43,14 @@ public class Account {
 
     @ManyToOne
     @JoinColumn(name = "id_bic_directory_entry", nullable = false)
+    @JsonIgnore
     private BicDirectoryEntry bicDirectoryEntry;
 
-    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
-    private List<AccountStatus> listAccountStatus;
-
-    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
-    private List<RegulationAccountType> listRegulationAccountType;
+//    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
+//    private List<AccountStatus> listAccountStatus;
+//
+//    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
+//    private List<RegulationAccountType> listRegulationAccountType;
 
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
     private List<AccRstrList> listAccRstrList;

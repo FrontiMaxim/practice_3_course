@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -26,8 +27,9 @@ public class AccRstrList {
 
     @ManyToOne
     @JoinColumn(name = "id_account", nullable = false)
+    @JsonIgnore
     private Account account;
 
-    @OneToMany(mappedBy = "accRstrList", fetch = FetchType.LAZY)
-    private List<AccRstr> listAccRstr;
+//    @OneToMany(mappedBy = "accRstrList", fetch = FetchType.LAZY)
+//    private List<AccRstr> listAccRstr;
 }

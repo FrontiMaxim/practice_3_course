@@ -11,7 +11,9 @@ import org.json.XML;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FileService {
@@ -22,14 +24,16 @@ public class FileService {
     private final RstrListRepository rstrListRepository;
     private final AccountRepository accountRepository;
     private final AccRstrListRepository accRstrListRepository;
+    private final SwbicRepository swbicRepository;
 
-    public FileService(Ed807Repository ed807Repository, BicDirectoryEntryRepository bicDirectoryEntryRepository, ParticipantInfoRepository participantInfoRepository, RstrListRepository rstrListRepository, AccountRepository accountRepository, AccRstrListRepository accRstrListRepository) {
+    public FileService(Ed807Repository ed807Repository, BicDirectoryEntryRepository bicDirectoryEntryRepository, ParticipantInfoRepository participantInfoRepository, RstrListRepository rstrListRepository, AccountRepository accountRepository, AccRstrListRepository accRstrListRepository, SwbicRepository swbicRepository) {
         this.ed807Repository = ed807Repository;
         this.bicDirectoryEntryRepository = bicDirectoryEntryRepository;
         this.participantInfoRepository = participantInfoRepository;
         this.rstrListRepository = rstrListRepository;
         this.accountRepository = accountRepository;
         this.accRstrListRepository = accRstrListRepository;
+        this.swbicRepository = swbicRepository;
     }
 
     public JSONObject parsingStringtoJSON(String data) {
@@ -106,6 +110,7 @@ public class FileService {
                         participantInfo.setRgn(i2.getRgn());
                         participantInfo.setInd(i2.getInd());
                         participantInfo.setTnp(i2.getTnp());
+                        participantInfo.setNnp(i2.getNnp());
                         participantInfo.setAdr(i2.getAdr());
                         participantInfo.setDateIn(i2.getDateIn());
                         participantInfo.setPtType(i2.getPtType());
@@ -163,9 +168,34 @@ public class FileService {
                         }
                     }
                 }
+
+                List<SwbicMapper> listSwbicMapper = i1.getListSwbic();
+                if(listSwbicMapper != null) {
+                    for(SwbicMapper i2 : listSwbicMapper) {
+                        Swbic swbic = new Swbic();
+
+                        swbic.setSwbic(i2.getSwbic());
+                        swbic.setDefaultSwbic(i2.getDefaultSwbic());
+                        swbic.setBicDirectoryEntry(bicDirectoryEntry);
+
+                        swbicRepository.save(swbic);
+                    }
+                }
             }
 
             System.out.println("Xml file saved to database!");
         }
+    }
+
+    public Ed807 getFile(Long id) {
+
+        Optional<Ed807> data = ed807Repository.findById(id);
+        Ed807 ed807 = new Ed807();
+
+        if(data.isPresent()) {
+            ed807 = data.get();
+        }
+
+        return ed807;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.apache.catalina.LifecycleState;
 
@@ -27,8 +28,9 @@ public class RstrList {
 
     @ManyToOne
     @JoinColumn(name="id_participant_info", nullable = false)
+    @JsonIgnore
     private ParticipantInfo participantInfo;
 
-    @OneToMany(mappedBy = "rstrList",fetch = FetchType.LAZY)
-    private List<Rstr> listRstr;
+//    @OneToMany(mappedBy = "rstrList",fetch = FetchType.LAZY)
+//    private List<Rstr> listRstr;
 }

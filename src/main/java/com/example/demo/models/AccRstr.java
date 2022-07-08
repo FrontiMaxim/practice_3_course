@@ -22,7 +22,7 @@ public class AccRstr {
     @Column(name = "name", nullable = true, length = 300)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "id_acc_rstr_list", nullable = false)
-    private AccRstrList accRstrList;
+//    @ManyToOne
+//    @JoinColumn(name = "id_acc_rstr_list", nullable = false)
+//    private AccRstrList accRstrList;
 }

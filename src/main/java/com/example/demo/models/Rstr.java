@@ -19,9 +19,9 @@ public class Rstr {
     @Column(name = "name", nullable = true, length = 300)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name="id_rstr_list", nullable = false)
-    private RstrList rstrList;
+//    @ManyToOne
+//    @JoinColumn(name="id_rstr_list", nullable = false)
+//    private RstrList rstrList;
 }
 
 

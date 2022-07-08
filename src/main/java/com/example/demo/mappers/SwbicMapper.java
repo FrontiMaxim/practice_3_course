@@ -12,6 +12,6 @@ public class SwbicMapper {
     @JsonProperty("SWBIC")
     private String swbic;
 
-    @JsonProperty("DefaultSwbic")
+    @JsonProperty("DefaultSWBIC")
     private Long defaultSwbic;
 }

@@ -22,7 +22,7 @@ public class PtType {
     @Column(name = "name", nullable = true, length = 300)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "id_participant_info", nullable = false)
-    private ParticipantInfo participantInfo;
+//    @ManyToOne
+//    @JoinColumn(name = "id_participant_info", nullable = false)
+//    private ParticipantInfo participantInfo;
 }

@@ -53,12 +53,12 @@ public class Ed807 {
     @Column(name = "directory_version", nullable = true)
     private Long directoryVersion;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ed807")
-    private List<CreationReason> listCreationReason;
+//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ed807")
+//    private List<CreationReason> listCreationReason;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ed807")
-    private List<InfoTypeCode> listInfoTypeCode;
+//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ed807")
+//    private List<InfoTypeCode> listInfoTypeCode;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ed807")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "ed807")
     private List<BicDirectoryEntry> listBicDirectoryEntry;
 }

@@ -1,8 +1,12 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 public class Swbic {
     @Id
     @Column(name = "id_swbic", nullable = false)
@@ -19,5 +23,6 @@ public class Swbic {
 
     @ManyToOne
     @JoinColumn(name="id_bic_directory_entry", nullable = false)
+    @JsonIgnore
     private BicDirectoryEntry bicDirectoryEntry;
 }

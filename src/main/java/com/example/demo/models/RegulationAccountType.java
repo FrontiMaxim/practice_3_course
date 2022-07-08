@@ -21,7 +21,7 @@ public class RegulationAccountType {
     @Column(name = "name", nullable = true, length = 300)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "id_account", nullable = false)
-    private Account account;
+//    @ManyToOne
+//    @JoinColumn(name = "id_account", nullable = false)
+//    private Account account;
 }
