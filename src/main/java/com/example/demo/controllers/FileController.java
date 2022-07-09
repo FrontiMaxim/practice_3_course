@@ -1,14 +1,14 @@
 package com.example.demo.controllers;
 
-import com.example.demo.mappers.Ed807Mapper;
 import com.example.demo.mappers.FileMapper;
-import com.example.demo.models.Ed807;
+import com.example.demo.maskes.MaskInfoFile;
 import com.example.demo.models.File;
 import com.example.demo.services.FileService;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.util.JsonParserDelegate;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -31,5 +31,10 @@ public class FileController {
     @RequestMapping (path = "/file/{id}", method = RequestMethod.GET)
     public File getFile(@PathVariable(value = "id") Long id) {
         return fileService.getFile(id);
+    }
+
+    @RequestMapping(path = "/files", method = RequestMethod.GET)
+    public ArrayList<MaskInfoFile> getFiles() {
+        return fileService.getFiles();
     }
 }

@@ -1,16 +1,21 @@
 package com.example.demo.services;
 
 import com.example.demo.mappers.*;
+import com.example.demo.maskes.MaskInfoFile;
 import com.example.demo.models.*;
 import com.example.demo.repository.*;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.*;
+import com.zaxxer.hikari.util.FastList;
 import org.json.JSONObject;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.json.XML;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -208,5 +213,21 @@ public class FileService {
         }
 
         return file;
+    }
+
+    public ArrayList<MaskInfoFile> getFiles() {
+
+        String[] arrayString = fileRepository.findAllFiles();
+        ArrayList<MaskInfoFile> list = new ArrayList<>();
+
+        for(String i : arrayString) {
+            String[] items = i.split(",");
+            MaskInfoFile infoFile = new MaskInfoFile();
+            infoFile.setIdFile(items[0]);
+            infoFile.setNameFile(items[1]);
+            list.add(infoFile);
+        }
+
+        return list;
     }
 }
