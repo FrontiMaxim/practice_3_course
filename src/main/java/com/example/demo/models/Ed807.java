@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -61,4 +62,9 @@ public class Ed807 {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "ed807")
     private List<BicDirectoryEntry> listBicDirectoryEntry;
+
+    @OneToOne
+    @JoinColumn(name = "id_file", nullable = false)
+    @JsonIgnore
+    private File file;
 }

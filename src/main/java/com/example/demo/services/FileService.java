@@ -11,7 +11,6 @@ import org.json.XML;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,8 +24,9 @@ public class FileService {
     private final AccountRepository accountRepository;
     private final AccRstrListRepository accRstrListRepository;
     private final SwbicRepository swbicRepository;
+    private final FileRepository fileRepository;
 
-    public FileService(Ed807Repository ed807Repository, BicDirectoryEntryRepository bicDirectoryEntryRepository, ParticipantInfoRepository participantInfoRepository, RstrListRepository rstrListRepository, AccountRepository accountRepository, AccRstrListRepository accRstrListRepository, SwbicRepository swbicRepository) {
+    public FileService(Ed807Repository ed807Repository, BicDirectoryEntryRepository bicDirectoryEntryRepository, ParticipantInfoRepository participantInfoRepository, RstrListRepository rstrListRepository, AccountRepository accountRepository, AccRstrListRepository accRstrListRepository, SwbicRepository swbicRepository, DirectoryRepository directoryRepository, FileRepository fileRepository) {
         this.ed807Repository = ed807Repository;
         this.bicDirectoryEntryRepository = bicDirectoryEntryRepository;
         this.participantInfoRepository = participantInfoRepository;
@@ -34,6 +34,7 @@ public class FileService {
         this.accountRepository = accountRepository;
         this.accRstrListRepository = accRstrListRepository;
         this.swbicRepository = swbicRepository;
+        this.fileRepository = fileRepository;
     }
 
     public JSONObject parsingStringtoJSON(String data) {
@@ -41,7 +42,7 @@ public class FileService {
         return XML.toJSONObject(new String(dataBytes, Charset.forName("cp1251")), true);
     }
 
-    public Ed807Mapper deserializationJson(JSONObject data) {
+    public FileMapper deserializationJson(JSONObject data) {
 
         ObjectMapper objectMapper = new ObjectMapper()
                 .configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false)
@@ -49,10 +50,10 @@ public class FileService {
                 .configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true)
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        Ed807Mapper parseED807 = new Ed807Mapper();
+        FileMapper parseFileMapper = new FileMapper();
 
         try {
-            parseED807 = objectMapper.readValue(data.toString(), Ed807Mapper.class);
+            parseFileMapper = objectMapper.readValue(data.toString(), FileMapper.class);
             System.out.println("Xml file parsing completed!");
         }
         catch (JsonMappingException error) {
@@ -65,120 +66,130 @@ public class FileService {
             error.printStackTrace();
         }
         finally {
-            return parseED807;
+            return parseFileMapper;
         }
     }
 
-    public void saveDatabase(Ed807Mapper data) {
-
-        boolean isSave = false;
+    public void saveDatabase(FileMapper data) {
 
         if(data != null) {
-
             System.out.println("Start saving in the database!");
 
-            Ed807 ed807 = new Ed807();
+            File file = new File();
 
-            ed807.setXmlns(data.getXmlns());
-            ed807.setEdNo(data.getEdNo());
-            ed807.setEdDate(data.getEdDate());
-            ed807.setEdAuthor(data.getEdAuthor());
-            ed807.setCreationReason(data.getCreationReason());
-            ed807.setCreationDateTime(data.getCreationDateTime());
-            ed807.setInfoTypeCode(data.getInfoTypeCode());
-            ed807.setBusinessDay(data.getBusinessDay());
-            ed807.setDirectoryVersion(data.getDirectoryVersion());
+            file.setIdFile(data.getIdFile());
+            file.setNameFile(data.getNameFile());
 
-            ed807Repository.save(ed807);
+            fileRepository.save(file);
 
-            List<BicDirectoryEntryMapper> listDirectoryEntryMapper = data.getListBicDirectoryEntry();
-            for(BicDirectoryEntryMapper i1 : listDirectoryEntryMapper) {
-                BicDirectoryEntry bicDirectoryEntry = new BicDirectoryEntry();
+            Ed807Mapper ed807Mapper = data.getEd807Mapper();
 
-                bicDirectoryEntry.setBic(i1.getBic());
-                bicDirectoryEntry.setEd807(ed807);
-                bicDirectoryEntryRepository.save(bicDirectoryEntry);
+            if(ed807Mapper != null) {
 
-                List<ParticipantInfoMapper> listParticipantInfoMapper = i1.getListParticipantInfo();
+                Ed807 ed807 = new Ed807();
 
-                if(listParticipantInfoMapper != null) {
-                    for(ParticipantInfoMapper i2 : listParticipantInfoMapper) {
-                        ParticipantInfo participantInfo = new ParticipantInfo();
+                ed807.setXmlns(ed807Mapper.getXmlns());
+                ed807.setEdNo(ed807Mapper.getEdNo());
+                ed807.setEdDate(ed807Mapper.getEdDate());
+                ed807.setEdAuthor(ed807Mapper.getEdAuthor());
+                ed807.setCreationReason(ed807Mapper.getCreationReason());
+                ed807.setCreationDateTime(ed807Mapper.getCreationDateTime());
+                ed807.setInfoTypeCode(ed807Mapper.getInfoTypeCode());
+                ed807.setBusinessDay(ed807Mapper.getBusinessDay());
+                ed807.setDirectoryVersion(ed807Mapper.getDirectoryVersion());
+                ed807.setFile(file);
 
-                        participantInfo.setNameP(i2.getNameP());
-                        participantInfo.setCntrCd(i2.getCntrCd());
-                        participantInfo.setRgn(i2.getRgn());
-                        participantInfo.setInd(i2.getInd());
-                        participantInfo.setTnp(i2.getTnp());
-                        participantInfo.setNnp(i2.getNnp());
-                        participantInfo.setAdr(i2.getAdr());
-                        participantInfo.setDateIn(i2.getDateIn());
-                        participantInfo.setPtType(i2.getPtType());
-                        participantInfo.setSrvcs(i2.getSrvcs());
-                        participantInfo.setXchType(i2.getXchType());
-                        participantInfo.setUid(i2.getUid());
-                        participantInfo.setBicDirectoryEntry(bicDirectoryEntry);
+                ed807Repository.save(ed807);
 
-                        participantInfoRepository.save(participantInfo);
+                List<BicDirectoryEntryMapper> listDirectoryEntryMapper = ed807Mapper.getListBicDirectoryEntry();
+                for(BicDirectoryEntryMapper i1 : listDirectoryEntryMapper) {
+                    BicDirectoryEntry bicDirectoryEntry = new BicDirectoryEntry();
 
-                        List<RstrListMapper> listRstrListMapper = i2.getListRstrList();
+                    bicDirectoryEntry.setBic(i1.getBic());
+                    bicDirectoryEntry.setEd807(ed807);
+                    bicDirectoryEntryRepository.save(bicDirectoryEntry);
 
-                        if(listRstrListMapper != null) {
-                            for(RstrListMapper i3 : listRstrListMapper) {
-                                RstrList rstrList = new RstrList();
+                    List<ParticipantInfoMapper> listParticipantInfoMapper = i1.getListParticipantInfo();
 
-                                rstrList.setRstr(i3.getRstr());
-                                rstrList.setRstrDate(i3.getRstrDate());
-                                rstrList.setParticipantInfo(participantInfo);
+                    if(listParticipantInfoMapper != null) {
+                        for(ParticipantInfoMapper i2 : listParticipantInfoMapper) {
+                            ParticipantInfo participantInfo = new ParticipantInfo();
 
-                                rstrListRepository.save(rstrList);
+                            participantInfo.setNameP(i2.getNameP());
+                            participantInfo.setCntrCd(i2.getCntrCd());
+                            participantInfo.setRgn(i2.getRgn());
+                            participantInfo.setInd(i2.getInd());
+                            participantInfo.setTnp(i2.getTnp());
+                            participantInfo.setNnp(i2.getNnp());
+                            participantInfo.setAdr(i2.getAdr());
+                            participantInfo.setDateIn(i2.getDateIn());
+                            participantInfo.setPtType(i2.getPtType());
+                            participantInfo.setSrvcs(i2.getSrvcs());
+                            participantInfo.setXchType(i2.getXchType());
+                            participantInfo.setUid(i2.getUid());
+                            participantInfo.setBicDirectoryEntry(bicDirectoryEntry);
+
+                            participantInfoRepository.save(participantInfo);
+
+                            List<RstrListMapper> listRstrListMapper = i2.getListRstrList();
+
+                            if(listRstrListMapper != null) {
+                                for(RstrListMapper i3 : listRstrListMapper) {
+                                    RstrList rstrList = new RstrList();
+
+                                    rstrList.setRstr(i3.getRstr());
+                                    rstrList.setRstrDate(i3.getRstrDate());
+                                    rstrList.setParticipantInfo(participantInfo);
+
+                                    rstrListRepository.save(rstrList);
+                                }
                             }
                         }
                     }
-                }
 
 
-                List<AccountMapper> listAccountMapper = i1.getListAccount();
-                if(listAccountMapper != null) {
-                    for(AccountMapper i2 : listAccountMapper) {
-                        Account account = new Account();
+                    List<AccountMapper> listAccountMapper = i1.getListAccount();
+                    if(listAccountMapper != null) {
+                        for(AccountMapper i2 : listAccountMapper) {
+                            Account account = new Account();
 
-                        account.setAccount(i2.getAccount());
-                        account.setRegulationAccountType(i2.getRegulationAccountType());
-                        account.setAccountCbrbic(i2.getAccountCbrbic());
-                        account.setDateIn(i2.getDateIn());
-                        account.setAccountStatus(i2.getAccountStatus());
-                        account.setCk(i2.getCk());
-                        account.setBicDirectoryEntry(bicDirectoryEntry);
+                            account.setAccount(i2.getAccount());
+                            account.setRegulationAccountType(i2.getRegulationAccountType());
+                            account.setAccountCbrbic(i2.getAccountCbrbic());
+                            account.setDateIn(i2.getDateIn());
+                            account.setAccountStatus(i2.getAccountStatus());
+                            account.setCk(i2.getCk());
+                            account.setBicDirectoryEntry(bicDirectoryEntry);
 
-                        accountRepository.save(account);
+                            accountRepository.save(account);
 
-                        List<AccRstrListMapper> listAccRstrListMapper = i2.getListAccRstrList();
+                            List<AccRstrListMapper> listAccRstrListMapper = i2.getListAccRstrList();
 
-                        if(listAccRstrListMapper != null) {
-                            for (AccRstrListMapper i3 : listAccRstrListMapper) {
-                                AccRstrList accRstrList = new AccRstrList();
+                            if(listAccRstrListMapper != null) {
+                                for (AccRstrListMapper i3 : listAccRstrListMapper) {
+                                    AccRstrList accRstrList = new AccRstrList();
 
-                                accRstrList.setAccRstr(i3.getAccRstr());
-                                accRstrList.setAccRstrDate(i3.getAccRstrDate());
-                                accRstrList.setAccount(account);
+                                    accRstrList.setAccRstr(i3.getAccRstr());
+                                    accRstrList.setAccRstrDate(i3.getAccRstrDate());
+                                    accRstrList.setAccount(account);
 
-                                accRstrListRepository.save(accRstrList);
+                                    accRstrListRepository.save(accRstrList);
+                                }
                             }
                         }
                     }
-                }
 
-                List<SwbicMapper> listSwbicMapper = i1.getListSwbic();
-                if(listSwbicMapper != null) {
-                    for(SwbicMapper i2 : listSwbicMapper) {
-                        Swbic swbic = new Swbic();
+                    List<SwbicMapper> listSwbicMapper = i1.getListSwbic();
+                    if(listSwbicMapper != null) {
+                        for(SwbicMapper i2 : listSwbicMapper) {
+                            Swbic swbic = new Swbic();
 
-                        swbic.setSwbic(i2.getSwbic());
-                        swbic.setDefaultSwbic(i2.getDefaultSwbic());
-                        swbic.setBicDirectoryEntry(bicDirectoryEntry);
+                            swbic.setSwbic(i2.getSwbic());
+                            swbic.setDefaultSwbic(i2.getDefaultSwbic());
+                            swbic.setBicDirectoryEntry(bicDirectoryEntry);
 
-                        swbicRepository.save(swbic);
+                            swbicRepository.save(swbic);
+                        }
                     }
                 }
             }
@@ -187,15 +198,15 @@ public class FileService {
         }
     }
 
-    public Ed807 getFile(Long id) {
+    public File getFile(Long id) {
 
-        Optional<Ed807> data = ed807Repository.findById(id);
-        Ed807 ed807 = new Ed807();
+        Optional<File> data = fileRepository.findById(id);
+        File file = new File();
 
         if(data.isPresent()) {
-            ed807 = data.get();
+            file = data.get();
         }
 
-        return ed807;
+        return file;
     }
 }
