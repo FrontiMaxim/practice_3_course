@@ -1,6 +1,7 @@
 <template>
   <div class="bic" v-for="bic in listBic">
-    <div>{{bic.bic}}</div>
+    <h3 class="title">Запись в справочнике БИК</h3>
+    <div><strong>БИК: </strong>{{bic.bic}}</div>
     <participant-info :participant-info="bic.participantInfo" />
     <my-accounts :list-accounts="bic.listAccount" />
     <my-swbics :list-swbic="bic.listSwbic" />
@@ -25,6 +26,9 @@ export default {
 
 <style scoped>
 .bic {
-  background: burlywood;
+  border: 5px dashed #c4cdd3;
+  margin: 10px 5px 30px 5px;
+  padding: 5px;
+  border-radius: 10px;
 }
 </style>

@@ -1,7 +1,8 @@
 <template>
   <div class="swbics" v-for="swbic in listSwbic">
-    <div>{{swbic.swbic}}</div>
-    <div>{{swbic.defaultSwibc}}</div>
+    <h3 class="title">Перечень БИК (СВИФТ)</h3>
+    <div><strong>БИК (СВИФТ): </strong>{{swbic.swbic}}</div>
+    <div><strong>Признак использования БИК (СВИФТ): </strong>{{swbic.defaultSwbic}}</div>
   </div>
 </template>
 
@@ -18,7 +19,5 @@ export default {
 </script>
 
 <style scoped>
-.swbics {
-  background: green;
-}
+
 </style>

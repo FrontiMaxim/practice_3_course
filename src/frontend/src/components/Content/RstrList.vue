@@ -1,7 +1,8 @@
 <template>
   <div class="rstr-list" v-for="rstr in listRstr">
-    <div>{{rstr.rstr}}</div>
-    <div>{{rstr.rstrDate}}</div>
+    <h3 class="title">Перечень ограничений участника</h3>
+    <div><strong>Код ограничения, наложенного на участника: </strong>{{rstr.rstr}}</div>
+    <div><strong>Дата начала действия ограничения участника: </strong>{{rstr.rstrDate}}</div>
   </div>
 </template>
 
@@ -24,7 +25,5 @@ export default {
 </script>
 
 <style scoped>
-.rstr-list {
-  background: red;
-}
+
 </style>

@@ -1,7 +1,8 @@
 <template>
   <div class="acc-rstr-list" v-for="accRstr in accRstrList">
-    <div>{{accRstr.accRstr}}</div>
-    <div>{{accRstr.accRstrDate}}</div>
+    <h3 class="title">Перечень ограничений операций по счёту</h3>
+    <div><strong>Код ограничения операций по счёту: </strong>{{accRstr.accRstr}}</div>
+    <div><strong>Дата начала действия ограничения по счёту: </strong>{{accRstr.accRstrDate}}</div>
   </div>
 </template>
 
@@ -25,7 +26,5 @@ export default {
 </script>
 
 <style scoped>
-.acc-rstr-list {
-  background: yellow;
-}
+
 </style>

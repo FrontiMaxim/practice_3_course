@@ -15,6 +15,7 @@ import org.json.XML;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -44,7 +45,7 @@ public class FileService {
 
     public JSONObject parsingStringtoJSON(String data) {
         byte[] dataBytes = data.getBytes();
-        return XML.toJSONObject(new String(dataBytes, Charset.forName("cp1251")), true);
+        return XML.toJSONObject(new String(dataBytes, StandardCharsets.UTF_8), true);
     }
 
     public FileMapper deserializationJson(JSONObject data) {

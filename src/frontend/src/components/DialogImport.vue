@@ -1,9 +1,10 @@
 <template>
-  <div v-if="this.isOpen" class="dialog-import" @click="this.isOpen = false">
+  <div v-if="this.isOpen" class="dialog-import">
     <form class="form-import">
       <input class="input-file" type="file" accept=".xml" @change="uploadFile"/>
       <input class="input-text" type="text" v-model="this.nameFile" placeholder="название файла" maxlength="20">
       <button class="btn-import" @click="fetchSaveFile">Сохранить</button>
+      <button class="btn-cancel" @click="$emit('cancelSave')">Отменить</button>
     </form>
   </div>
 </template>
@@ -11,12 +12,18 @@
 <script>
 export default {
 
+  props: {
+    isOpen: {
+      type: Boolean,
+      required: true
+    }
+  },
+
   data() {
     return {
       url: '/api/file',
       idFile: 0,
-      nameFile: '',
-      isOpen: false
+      nameFile: ''
     }
   },
 
@@ -28,6 +35,7 @@ export default {
 
     async fetchSaveFile() {
 
+      this.$emit('sendingFile')
       this.idFile = Date.now();
       let content = await this.file.text();
 
@@ -47,12 +55,10 @@ export default {
           method: "post"
         });
 
-        console.log(response);
+        this.$emit('updateListFiles');
       } catch(error) {
         console.log(error)
       }
-
-      this.isOpen = false;
     }
   }
 }
@@ -105,12 +111,29 @@ export default {
   height: 25px;
   border-radius: 5px;
   border: none;
-  background: #badb3c;
+  background: #c4cdd3;
   cursor: pointer;
+  margin-bottom: 10px;
+  box-shadow: 0 0 3px #000;
 }
 
 .btn-import:hover {
-  box-shadow: 0 0 10px #badb3c;
+  box-shadow: 0 0 10px #000;
+}
+
+.btn-cancel {
+  font-size: 16px;
+  width: 200px;
+  height: 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  box-shadow: 0 0 3px #000;
+}
+
+.btn-cancel:hover {
+  box-shadow: 0 0 10px #000;
 }
 
 

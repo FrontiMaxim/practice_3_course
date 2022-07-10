@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <ed-807 :ed807="this.content.ed807" />
+  <div class="content">
+      <ed-807 :ed807="this.content.ed807" />
   </div>
 </template>
 

@@ -22,10 +22,11 @@ public class FileController {
 
 
     @RequestMapping (path = "/file", method = RequestMethod.POST)
-    public void postFile(@RequestBody String dataString) {
+    public String postFile(@RequestBody String dataString) {
         JSONObject dataJSON = fileService.parsingStringtoJSON(dataString);
         FileMapper parseFileMapper = fileService.deserializationJson(dataJSON);
         fileService.saveDatabase(parseFileMapper);
+        return "OK";
     }
 
     @RequestMapping (path = "/file/{id}", method = RequestMethod.GET)

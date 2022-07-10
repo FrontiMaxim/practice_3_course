@@ -1,19 +1,19 @@
 <template>
   <div class="participant-info">
-    <div>{{participantInfo.nameP}}</div>
-    <div>{{participantInfo.regN}}</div>
-    <div>{{participantInfo.cntrCd}}</div>
-    <div>{{participantInfo.rgn}}</div>
-    <div>{{participantInfo.ind}}</div>
-    <div>{{participantInfo.tnp}}</div>
-    <div>{{participantInfo.nnp}}</div>
-    <div>{{participantInfo.adr}}</div>
-    <div>{{participantInfo.dateIn}}</div>
-    <div>{{participantInfo.ptType}}</div>
-    <div>{{participantInfo.srvcs}}</div>
-    <div>{{participantInfo.uid}}</div>
-    <div>{{participantInfo.ptType}}</div>
-    <div>{{participantInfo.participantStatus}}</div>
+    <h3 class="title">Информация об участнике входящего в справочник БИК</h3>
+    <div><strong>Наименование участника: </strong>{{participantInfo.nameP}}</div>
+    <div><strong>Код страны: </strong>{{participantInfo.cntrCd}}</div>
+    <div><strong>Код территории: </strong>{{participantInfo.rgn}}</div>
+    <div><strong>Индекс: </strong>{{participantInfo.ind}}</div>
+    <div><strong>Тип населённого пункта: </strong>{{participantInfo.tnp}}</div>
+    <div><strong>Наименование населённого пункта: </strong>{{participantInfo.nnp}}</div>
+    <div><strong>Адрес: </strong>{{participantInfo.adr}}</div>
+    <div><strong>Дата включения в состав участников перевода: </strong>{{participantInfo.dateIn}}</div>
+    <div><strong>Тип участника перевода: </strong>{{participantInfo.ptType}}</div>
+    <div><strong>Доступные сервисы перевода денежных средств: </strong>{{participantInfo.srvcs}}</div>
+    <div><strong>УИС: </strong>{{participantInfo.uid}}</div>
+    <div><strong>Тип участника перевода: </strong>{{participantInfo.ptType}}</div>
+    <div><strong>Участник обмена: </strong>{{participantInfo.xchType}}</div>
     <rstr-list :list-rstr="participantInfo.listRstrList" />
   </div>
 </template>
@@ -33,7 +33,5 @@ export default {
 </script>
 
 <style scoped>
-.participant-info {
-  background: darkgrey;
-}
+
 </style>
