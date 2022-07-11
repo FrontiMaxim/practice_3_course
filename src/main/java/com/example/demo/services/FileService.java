@@ -5,17 +5,15 @@ import com.example.demo.maskes.MaskInfoFile;
 import com.example.demo.models.*;
 import com.example.demo.repository.*;
 import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.*;
-import com.zaxxer.hikari.util.FastList;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Service;
 import org.json.XML;
+import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -43,12 +41,12 @@ public class FileService {
         this.fileRepository = fileRepository;
     }
 
-    public JSONObject parsingStringtoJSON(String data) {
-        byte[] dataBytes = data.getBytes();
-        return XML.toJSONObject(new String(dataBytes, StandardCharsets.UTF_8), true);
+    public JSONObject parsingStringtoJSON(byte[] data) {
+        return XML.toJSONObject(new String(data, Charset.forName("cp1251")), true);
     }
 
-    public FileMapper deserializationJson(JSONObject data) {
+    //public FileMapper deserializationJson(JSONObject data) {
+    public Ed807Mapper deserializationJson(JSONObject data) {
 
         ObjectMapper objectMapper = new ObjectMapper()
                 .configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false)
@@ -56,10 +54,12 @@ public class FileService {
                 .configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true)
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        FileMapper parseFileMapper = new FileMapper();
+        //FileMapper parseFileMapper = new FileMapper();
+        Ed807Mapper parseFileMapper = new Ed807Mapper();
 
         try {
-            parseFileMapper = objectMapper.readValue(data.toString(), FileMapper.class);
+            //parseFileMapper = objectMapper.readValue(data.toString(), FileMapper.class);
+            parseFileMapper = objectMapper.readValue(data.toString(), Ed807Mapper.class);
             System.out.println("Xml file parsing completed!");
         }
         catch (JsonMappingException error) {
@@ -76,19 +76,21 @@ public class FileService {
         }
     }
 
-    public void saveDatabase(FileMapper data) {
+    //public void saveDatabase(FileMapper data) {
+    public void saveDatabase(FileDto fileDto, Ed807Mapper data) {
 
         if(data != null) {
             System.out.println("Start saving in the database!");
 
             File file = new File();
 
-            file.setIdFile(data.getIdFile());
-            file.setNameFile(data.getNameFile());
+            //file.setIdFile(data.getIdFile());
+            file.setNameFile(fileDto.getNameFile());
 
             fileRepository.save(file);
 
-            Ed807Mapper ed807Mapper = data.getEd807Mapper();
+            //Ed807Mapper ed807Mapper = data.getEd807Mapper();
+            Ed807Mapper ed807Mapper = data;
 
             if(ed807Mapper != null) {
 

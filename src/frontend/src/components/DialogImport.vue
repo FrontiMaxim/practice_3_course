@@ -39,18 +39,17 @@ export default {
       this.idFile = Date.now();
       let content = await this.file.text();
 
-      let xml = `<FileInfo IdFile=${this.idFile} NameFile=${this.nameFile}>
+      let xml = `<FileInfo IdFile=${this.idFile} nameFile=${this.nameFile}>
                        ${content}
                   </FileInfo>`
 
       let data = new FormData();
-      data.append('file', xml);
+      //data.append('file', xml);
+      data.append('file', this.file);
+      data.append('nameFile', this.nameFile);
 
       try {
         let response = await fetch(this.url, {
-          headers: {
-            "Content-Type": "text/xml"
-          },
           body: data,
           method: "post"
         });

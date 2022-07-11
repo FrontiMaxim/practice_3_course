@@ -7,6 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface FileRepository extends CrudRepository<File, Long> {
 
-    @Query(value = "select file.idFile, file.nameFile from File file")
+    @Query(value = "select * from public.file", nativeQuery = true)
     public String[] findAllFiles();
 }
